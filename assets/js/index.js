@@ -103,7 +103,9 @@ next.addEventListener("click", () => {
 
 const oneFetch = async (page, limit) => {
   try {
-    let response = await fetch(`${BASE_URL}jobs?_page=${page}&_limit=${limit}`);
+    let response = await fetch(
+      `${BASE_URL}jobs?_page=${page ? page : 1}&_limit=${limit ? limit : 10}`
+    );
     if (response.ok) {
       let data = await response.json();
       console.log(data);
@@ -176,7 +178,11 @@ searchBtn.addEventListener("click", () => {
 const oneFunction = async (page, limit, searchString) => {
   try {
     let response = await fetch(
-      `${BASE_URL}jobs?_page=${page}&_limit=${limit}&q=${searchString}`
+      `${BASE_URL}jobs?_page=${page ? page : 1}&_limit=${
+        limit ? limit : 10
+      }&q=${
+        searchString ? searchString : "Full-stack Engineer (ReactJS, NodeJS)"
+      }`
     );
     if (response.ok) {
       let data = await response.json();
@@ -191,7 +197,7 @@ const oneFunction = async (page, limit, searchString) => {
 };
 
 // answer
-// oneFunction(2, 10, "Full-stack Engineer (ReactJS, NodeJS)");
+// oneFunction(2, 15, "Full-stack Engineer (ReactJS, NodeJS)");
 
 // (12)
 
@@ -200,7 +206,7 @@ const renderTitleList = async (page, limit, searchString) => {
   if (!searchString) {
     try {
       let response = await fetch(
-        `${BASE_URL}jobs?_page=${page}&_limit=${limit}`
+        `${BASE_URL}jobs?_page=${page ? page : 1}&_limit=${limit ? limit : 10}`
       );
       if (response.ok) {
         data = await response.json();
@@ -212,7 +218,9 @@ const renderTitleList = async (page, limit, searchString) => {
   } else {
     try {
       let response = await fetch(
-        `${BASE_URL}jobs?_page=${page}&_limit=${limit}&q=${searchString}`
+        `${BASE_URL}jobs?_page=${page ? page : 1}&_limit=${
+          limit ? limit : 10
+        }&q=${searchString}`
       );
       if (response.ok) {
         data = await response.json();
